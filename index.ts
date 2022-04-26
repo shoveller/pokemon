@@ -1,4 +1,4 @@
-import axios from 'axios'
+import fetch from 'isomorphic-fetch'
 
 interface IRecord {
     name: string
@@ -13,7 +13,7 @@ interface IResponse<RecordType> {
 }
 
 // sdk 생성
-const sdk = () => axios.get<IResponse<IRecord>>('https://pokeapi.co/api/v2/pokemon').then(res => res.data)
+const sdk = () => fetch('https://pokeapi.co/api/v2/pokemon').then((res: { json: () => any }) => res.json()) as Promise<IResponse<IRecord>>
 
 // 화면에 표시
 const react = async () => {
